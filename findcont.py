@@ -21,7 +21,7 @@ for i in range(folder_count):
     # Find Canny edges
     
     edged = cv2.Canny(gray, 30, 200)
-    
+
 
 
 
@@ -31,17 +31,19 @@ for i in range(folder_count):
     # Use a copy of the image e.g. edged.copy()
     # since findContours alters the image
 
-    cv2.imshow('image', edged)
-    cv2.waitKey(0)
+    contours, hierarchy = cv2.findContours(edged, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
 
-    contours, hierarchy = cv2.findContours(edged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    '''
+    max = 0
+    sel_countour = None
+    for countour in contours:
+        if countour.shape[0] > max:
+            sel_countour = countour
+            max = countour.shape[0]
+    '''
 
-    print()
-
-    cv2.drawContours(black_image, contours, -1, (255, 255, 255), -1)
-    cv2.imshow('image', black_image)
-    cv2.waitKey(0)
-
+    cv2.drawContours(black_image, contours, -1, (255, 255, 255), 47)
     im2 = Image.fromarray(black_image)
     # сохраняем новое изображение
     im2.save(r"C:\Users\RMC\Desktop\ready\s_"+str(i)+".jpeg")
+    
